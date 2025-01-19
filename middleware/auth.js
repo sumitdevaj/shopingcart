@@ -25,3 +25,13 @@ exports.isSeller = async(req, res, next)=>{
     
     next()
 }
+
+exports.isAdmin = async (...roles) => {
+    return (req,res,next)=>{
+        if(!roles.includes(req.user.role)){
+            return next(new ErrorHandler('You do not have permission to'))
+        }
+        next();
+    }
+
+}
